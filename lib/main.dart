@@ -8,14 +8,18 @@ import 'main_list.dart';
 //应用程序入口  =>是Dart中单行函数或方法的简写
 void main()=> runApp(MyApp());
 
+//这个widget是应用程序的根。在Flutter中，大多数东西都是widget（后同“组件”或“部件”），包括对齐(alignment)、填充(padding)和布局(layout)等，它们都是以widget的形式提供
 
 class MyApp extends StatelessWidget {
-  // 这个widget是应用程序的根。在Flutter中，大多数东西都是widget（后同“组件”或“部件”），包括对齐(alignment)、填充(padding)和布局(layout)等，它们都是以widget的形式提供
+
+  Map<String, WidgetBuilder> routes;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       //应用名称
       title: 'Flutter Demo',
+      initialRoute:"/", //名为"/"的路由作为应用的home(首页)
       // 应用程序主题，尝试修改Colors颜色，点击热加载按钮
       theme: ThemeData(
         primarySwatch: Colors.green,
@@ -24,8 +28,15 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+
+      //注册路由表
+      routes:{
+        "/":(context) => MyHomePage(title: 'Flutter Demo Home Page'), //注册首页路由
+        "start_flutter":(context) => MainListPage(title: "一级列表")
+      },
+
       //应用程序首页路由
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      //home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -83,10 +94,18 @@ class _MyHomePageState extends State<MyHomePage> {
               textColor: Colors.blue,
               onPressed: () {
                 //导航到新路由
-                Navigator.push( context,
-                    MaterialPageRoute(builder: (context) {
-                       return MainListPage(title: "一级列表");
-                    }));
+                //通过路由注册表路由名打开新路由页面
+                Navigator.pushNamed(context, "start_flutter");
+                //传递参数
+                //Navigator.of(context).pushNamed("start_flutter", arguments: "hi");
+                //下一个页面获取路由参数
+                //var args=ModalRoute.of(context).settings.arguments;
+
+                //原始路由方式
+//                Navigator.push( context,
+//                    MaterialPageRoute(builder: (context) {
+//                       return MainListPage(title: "一级列表");
+//                    }));
               },
             ),
           ],

@@ -8,6 +8,7 @@ class MainListPage extends StatefulWidget {
   MainListPage({Key key, @required this.title}) : super(key: key);
 
   final String title;
+
   @override
   MainListPageState createState() => MainListPageState();
 }
@@ -20,6 +21,10 @@ class MainListPageState extends State<MainListPage> {
     "布局组件",
     "容器组件"];
 
+  List<WidgetBuilder> routes = [
+
+  ];
+
   Widget getItem(int index){
     return GestureDetector(
         child:Container(
@@ -30,24 +35,23 @@ class MainListPageState extends State<MainListPage> {
         onTap: (){
           print("点击到第"+index.toString());
           if(index==0){
+
             Navigator.push( context,
                 MaterialPageRoute(builder: (context) {
                   return WidgetBaseListPage(title: list[index]);
                 }));
+//            Navigator.push( context,
+//                MaterialPageRoute(builder: (context) {
+//                  return WidgetBaseListPage(title: list[index]);
+//                }));
           }
         },
-        //item 长按事件
-//        onLongPress: (){
-//          setState(() {
-//            _onItemLongPressed(index);
-//          });
-//          print("长按"+index.toString());
-//        }
     );
   }
 
   @override
   Widget build(BuildContext context) {
+
     //下划线widget预定义以供复用。
     Widget divider1 = Divider(color: Colors.blue,);
     Widget divider2 = Divider(color: Colors.green);
